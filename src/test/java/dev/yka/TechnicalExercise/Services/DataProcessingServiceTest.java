@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @SpringBootTest
@@ -90,6 +91,12 @@ class DataProcessingServiceTest {
     public void filterByCity() {
         List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null, new DataProcessingFilter("city","eq", "Glasgow"));
         Assertions.assertEquals(0, processedData.stream().filter(x->x.getCity() != "Glasgow").count());
+    }
+
+    @Test
+    public void filterByPostcode() {
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null, new DataProcessingFilter("postcode","eq", "CO3"));
+        Assertions.assertEquals(1, processedData.stream().filter(x->x.getPostcode() == "CO3").count());
     }
 
 }
