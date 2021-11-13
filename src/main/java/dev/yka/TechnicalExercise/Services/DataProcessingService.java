@@ -11,26 +11,19 @@ import java.util.stream.Collectors;
 
 @Service
 public class DataProcessingService {
-    public List<ProcessedData> processData(List<DataEntry> dataEntry) {
-        //Spec states that the data can be passed in any form - opting for JSON
-        //Group residents in the same address <- OneToMany r/ship? Resident instance variable of Address?
-        //Filter  \
-        //         > Seems that the filter or sorting is per property??
-        //Sorting /
-        return processDataEntries(dataEntry);
-    }
-
-    private List<ProcessedData> processDataEntries(List<DataEntry> dataEntries) {
+    public List<ProcessedData> processData(List<DataEntry> dataEntries) {
         List<WrappedProcessedData> parsedList = new ArrayList<>();
 
-        dataEntries.stream()
-        .forEach(eachEntry -> {
-            ProcessedData pd = new ProcessedData(eachEntry.getAddress1(), eachEntry.getAddress2(), eachEntry.getCity(), eachEntry.getState(), eachEntry.getPostcode(), eachEntry.getCountryCode(), new ArrayList<>());
-            int duplicateAddressIndex = parsedList.indexOf(new WrappedProcessedData(pd));
-            Resident resident = new Resident(eachEntry.getFirstName(), eachEntry.getSurname(), eachEntry.getGender(), eachEntry.getDateOfBirth());
+        dataEntries.stream().forEach(eachEntry -> {
+            ProcessedData processedData = new ProcessedData(eachEntry);
+            int duplicateAddressIndex = parsedList.indexOf(new WrappedProcessedData(processedData));
+            Resident resident = new Resident(eachEntry);
+
+            //If there are no duplicates addresses add to list and include resident
+            //else concat list with new resident and replace the old address
             if(duplicateAddressIndex < 0) {
-                pd.setResidents(Arrays.asList(resident));
-                parsedList.add(new WrappedProcessedData(pd));
+                processedData.setResidents(Arrays.asList(resident));
+                parsedList.add(new WrappedProcessedData(processedData));
             } else {
                 ProcessedData unwrappedData = parsedList.get(duplicateAddressIndex).unwrap();
                 ArrayList<Resident> objects = new ArrayList<>();
@@ -43,5 +36,6 @@ public class DataProcessingService {
 
         return parsedList.stream().map(WrappedProcessedData::unwrap).collect(Collectors.toList());
     }
+
 
 }

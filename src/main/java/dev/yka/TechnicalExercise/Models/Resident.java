@@ -15,6 +15,13 @@ public class Resident {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public Resident(DataEntry dataEntry) {
+        this.firstName = getFirstName();
+        this.surname = getSurname();
+        this.gender = getGender();
+        this.dateOfBirth = getDateOfBirth();
+    }
+
     public String getFirstName() {
         return firstName;
     }

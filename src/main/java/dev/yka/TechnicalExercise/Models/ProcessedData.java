@@ -1,5 +1,6 @@
 package dev.yka.TechnicalExercise.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProcessedData {
@@ -11,14 +12,14 @@ public class ProcessedData {
     private String countryCode;
     private List<Resident> residents;
 
-    public ProcessedData(String address1, String address2, String city, String state, String postcode, String countryCode, List<Resident> resident) {
-        this.address1 = address1;
-        this.address2 = address2;
-        this.city = city;
-        this.state = state;
-        this.postcode = postcode;
-        this.countryCode = countryCode;
-        this.residents = resident;
+    public ProcessedData(DataEntry dataEntry) {
+        this.address1 = dataEntry.getAddress1();
+        this.address2 = dataEntry.getAddress2();
+        this.city = dataEntry.getCity();
+        this.state = dataEntry.getState();
+        this.postcode = dataEntry.getPostcode();
+        this.countryCode = dataEntry.getCountryCode();
+        this.residents = new ArrayList<>();
     }
 
     public String getAddress1() {
