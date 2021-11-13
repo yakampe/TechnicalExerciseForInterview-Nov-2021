@@ -16,10 +16,10 @@ public class Resident {
     }
 
     public Resident(DataEntry dataEntry) {
-        this.firstName = getFirstName();
-        this.surname = getSurname();
-        this.gender = getGender();
-        this.dateOfBirth = getDateOfBirth();
+        this.firstName = dataEntry.getFirstName();
+        this.surname = dataEntry.getSurname();
+        this.gender = dataEntry.getGender();
+        this.dateOfBirth = dataEntry.getDateOfBirth();
     }
 
     public String getFirstName() {

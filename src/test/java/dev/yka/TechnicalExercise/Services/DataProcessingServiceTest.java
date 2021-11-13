@@ -63,4 +63,10 @@ class DataProcessingServiceTest {
         List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries);
         Assertions.assertTrue(processedData.stream().filter(i -> Collections.frequency(processedData, i) > 1).collect(Collectors.toList()).size() == 0);
     }
+    @Test
+    public void sortByCity() {
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries);
+        Assertions.assertEquals("Abc",processedData.get(0).getCity());
+    }
+
 }
