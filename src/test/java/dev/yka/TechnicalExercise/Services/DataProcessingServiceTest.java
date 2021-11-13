@@ -34,6 +34,9 @@ class DataProcessingServiceTest {
 
         listOfDataEntries.add(new DataEntry(resident1.getFirstName(),resident1.getSurname(),"Customs House","1 Long Street","Glasgow","Glasgow","G10","UK",resident1.getGender(),resident1.getDateOfBirth()));
         listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"Customs House","1 Long Street","Glasgow","Glasgow","G10","UK",resident2.getGender(),resident2.getDateOfBirth()));
+        listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"Residential area","37 Java Street","Chelmsford","Essix","CM2","GB",resident2.getGender(),resident2.getDateOfBirth()));
+        listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"Tea area","341 Java Street","Colchester","Essix","CO3","UK",resident2.getGender(),resident2.getDateOfBirth()));
+        listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"67 TDD Street","","Colchester","Essix","CO3 5GE","GB",resident2.getGender(),resident2.getDateOfBirth()));
     }
 
     @Test
