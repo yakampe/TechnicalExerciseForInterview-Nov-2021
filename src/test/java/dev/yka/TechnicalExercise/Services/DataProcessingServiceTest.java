@@ -73,9 +73,9 @@ class DataProcessingServiceTest {
 
     @Test
     public void sortByAddress1() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "city");
-        Assertions.assertEquals("67 TDD Street",processedData.get(0).getCity());
-        Assertions.assertEquals("Residential Area",processedData.get(processedData.size()-1).getCity());
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "address1");
+        Assertions.assertEquals("67 TDD Street",processedData.get(0).getAddress1());
+        Assertions.assertEquals("Tea area",processedData.get(processedData.size()-1).getAddress1());
     }
 
 }

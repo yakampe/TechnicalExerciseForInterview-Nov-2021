@@ -7,6 +7,7 @@ import dev.yka.TechnicalExercise.Models.WrappedProcessedData;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,10 +36,22 @@ public class DataProcessingService {
         });
 
         if(sortType != null) {
-            return parsedList.stream().map(WrappedProcessedData::unwrap).sorted(Comparator.comparing(ProcessedData::getCity)).collect(Collectors.toList());
+            return sortedList(parsedList, sortType);
         }
 
         return parsedList.stream().map(WrappedProcessedData::unwrap).collect(Collectors.toList());
+    }
+
+    private List<ProcessedData> sortedList(List<WrappedProcessedData> parsedList, String sortType) {
+        Function<ProcessedData, String> sortMethodReference = ProcessedData::getAddress1;
+
+        switch (sortType) {
+            case "city":
+                sortMethodReference = ProcessedData::getCity;
+                break;
+        }
+
+        return parsedList.stream().map(WrappedProcessedData::unwrap).sorted(Comparator.comparing(sortMethodReference)).collect(Collectors.toList());
     }
 
 
