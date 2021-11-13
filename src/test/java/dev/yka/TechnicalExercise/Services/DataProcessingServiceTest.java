@@ -1,6 +1,7 @@
 package dev.yka.TechnicalExercise.Services;
 
 import dev.yka.TechnicalExercise.Models.DataEntry;
+import dev.yka.TechnicalExercise.Models.DataProcessingFilter;
 import dev.yka.TechnicalExercise.Models.ProcessedData;
 import dev.yka.TechnicalExercise.Models.Resident;
 import org.junit.jupiter.api.Assertions;
@@ -83,6 +84,12 @@ class DataProcessingServiceTest {
         List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "postcode", null);
         Assertions.assertEquals("CM2",processedData.get(0).getPostcode());
         Assertions.assertEquals("G10",processedData.get(processedData.size()-1).getPostcode());
+    }
+
+    @Test
+    public void filterByCity() {
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null, new DataProcessingFilter("city","eq", "Glasgow"));
+        Assertions.assertEquals(0, processedData.stream().filter(x->x.getCity() != "Glasgow").count());
     }
 
 }

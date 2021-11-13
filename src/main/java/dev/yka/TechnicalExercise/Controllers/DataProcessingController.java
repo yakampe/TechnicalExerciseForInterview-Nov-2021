@@ -23,7 +23,11 @@ public class DataProcessingController {
     DataProcessingService dataProcessingService;
 
     @PostMapping(value = "/process-data", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ProcessedData>> processData(@RequestBody List<DataEntry> dataEntry, @RequestParam String sortType, @RequestParam String filterType, @RequestParam String filterComparator) {
+    public ResponseEntity<List<ProcessedData>> processData(@RequestBody List<DataEntry> dataEntry,
+                                                           @RequestParam String sortType,
+                                                           @RequestParam String filterType,
+                                                           @RequestParam String filterComparator,
+                                                           @RequestParam String filterCriteria) {
         return ResponseEntity.ok(dataProcessingService.processData(dataEntry, sortType, null));
     }
 }
