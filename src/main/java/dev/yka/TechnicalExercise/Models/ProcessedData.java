@@ -1,4 +1,6 @@
 package dev.yka.TechnicalExercise.Models;
 
-public class DataEntry {
+public class ProcessedData {
+
+
 }
