@@ -21,12 +21,16 @@ class DataProcessingServiceTest {
 
     List<DataEntry> listOfDataEntries;
     Resident resident1;
+    Resident resident2;
 
     @BeforeEach
     public void dataSetup() {
         listOfDataEntries = new ArrayList<>();
         resident1 = new Resident("Fred","Smith","M",LocalDate.parse("2010-01-01", DateTimeFormatter.ISO_DATE));
+        resident2 = new Resident("Frog","Shmet","T",LocalDate.parse("2012-01-01", DateTimeFormatter.ISO_DATE));
+
         listOfDataEntries.add(new DataEntry(resident1.getFirstName(),resident1.getSurname(),"Customs House","1 Long Street","Glasgow","Glasgow","G10","UK",resident1.getGender(),resident1.getDateOfBirth()));
+        listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"Customs House","1 Long Street","Glasgow","Glasgow","G10","UK",resident2.getGender(),resident2.getDateOfBirth()));
     }
 
     @Test
@@ -38,5 +42,12 @@ class DataProcessingServiceTest {
     @Test
     public void assignsResidentToAddress() {
         Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResident().get(0)).matches(resident1));
+    }
+
+    @Test
+    public void assignsMultipleResidentsToSameAddress() {
+        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResident().get(0)).matches(resident1));
+        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResident().get(1)).matches(resident2));
+        Assertions.assertTrue(dataProcessingService.processData(listOfDataEntries).get(0).getResident().size() > 1);
     }
 }
