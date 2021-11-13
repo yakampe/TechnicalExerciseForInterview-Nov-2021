@@ -9,7 +9,7 @@ public class ProcessedData {
     private String state;
     private String postcode;
     private String countryCode;
-    private List<Resident> resident;
+    private List<Resident> residents;
 
     public ProcessedData(String address1, String address2, String city, String state, String postcode, String countryCode, List<Resident> resident) {
         this.address1 = address1;
@@ -18,7 +18,7 @@ public class ProcessedData {
         this.state = state;
         this.postcode = postcode;
         this.countryCode = countryCode;
-        this.resident = resident;
+        this.residents = resident;
     }
 
     public String getAddress1() {
@@ -69,11 +69,11 @@ public class ProcessedData {
         this.countryCode = countryCode;
     }
 
-    public List<Resident> getResident() {
-        return resident;
+    public List<Resident> getResidents() {
+        return residents;
     }
 
-    public void setResident(List<Resident> resident) {
-        this.resident = resident;
+    public void setResidents(List<Resident> residents) {
+        this.residents = residents;
     }
 }

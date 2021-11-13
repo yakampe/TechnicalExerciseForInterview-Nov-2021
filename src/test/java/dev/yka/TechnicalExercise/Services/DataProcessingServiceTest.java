@@ -41,13 +41,13 @@ class DataProcessingServiceTest {
 
     @Test
     public void assignsResidentToAddress() {
-        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResident().get(0)).matches(resident1));
+        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResidents().get(0)).matches(resident1));
     }
 
     @Test
     public void assignsMultipleResidentsToSameAddress() {
-        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResident().get(0)).matches(resident1));
-        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResident().get(1)).matches(resident2));
-        Assertions.assertTrue(dataProcessingService.processData(listOfDataEntries).get(0).getResident().size() > 1);
+        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResidents().get(0)).matches(resident1));
+        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResidents().get(1)).matches(resident2));
+        Assertions.assertTrue(dataProcessingService.processData(listOfDataEntries).get(0).getResidents().size() > 1);
     }
 }

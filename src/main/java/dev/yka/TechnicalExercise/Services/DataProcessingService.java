@@ -3,13 +3,10 @@ package dev.yka.TechnicalExercise.Services;
 import dev.yka.TechnicalExercise.Models.DataEntry;
 import dev.yka.TechnicalExercise.Models.ProcessedData;
 import dev.yka.TechnicalExercise.Models.Resident;
+import dev.yka.TechnicalExercise.Models.WrappedProcessedData;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,10 +21,27 @@ public class DataProcessingService {
     }
 
     private List<ProcessedData> processDataEntries(List<DataEntry> dataEntries) {
-        return dataEntries.stream()
-                .map(x -> {
-                    Resident resident = new Resident(x.getFirstName(),x.getSurname(),x.getGender(), x.getDateOfBirth());
-                    return new ProcessedData(x.getAddress1(), x.getAddress2(), x.getCity(), x.getState(), x.getPostcode(), x.getCountryCode(), Arrays.asList(resident));
-                }).collect(Collectors.toList());
+        List<WrappedProcessedData> parsedList = new ArrayList<>();
+
+        dataEntries.stream()
+        .forEach(eachEntry -> {
+            ProcessedData pd = new ProcessedData(eachEntry.getAddress1(), eachEntry.getAddress2(), eachEntry.getCity(), eachEntry.getState(), eachEntry.getPostcode(), eachEntry.getCountryCode(), new ArrayList<>());
+            int duplicateAddressIndex = parsedList.indexOf(new WrappedProcessedData(pd));
+            Resident resident = new Resident(eachEntry.getFirstName(), eachEntry.getSurname(), eachEntry.getGender(), eachEntry.getDateOfBirth());
+            if(duplicateAddressIndex < 0) {
+                pd.setResidents(Arrays.asList(resident));
+                parsedList.add(new WrappedProcessedData(pd));
+            } else {
+                ProcessedData unwrappedData = parsedList.get(duplicateAddressIndex).unwrap();
+                ArrayList<Resident> objects = new ArrayList<>();
+                objects.addAll(unwrappedData.getResidents());
+                objects.add(resident);
+                unwrappedData.setResidents(objects);
+                parsedList.add(duplicateAddressIndex, new WrappedProcessedData(unwrappedData));
+            }
+        });
+
+        return parsedList.stream().map(WrappedProcessedData::unwrap).collect(Collectors.toList());
     }
+
 }
