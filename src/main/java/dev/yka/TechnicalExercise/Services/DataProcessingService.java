@@ -3,7 +3,6 @@ package dev.yka.TechnicalExercise.Services;
 import dev.yka.TechnicalExercise.Models.DataEntry;
 import dev.yka.TechnicalExercise.Models.ProcessedData;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
