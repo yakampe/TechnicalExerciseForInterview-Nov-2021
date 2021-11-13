@@ -1,6 +1,7 @@
 package dev.yka.TechnicalExercise.Services;
 
 import dev.yka.TechnicalExercise.Models.DataEntry;
+import dev.yka.TechnicalExercise.Models.ProcessedData;
 import dev.yka.TechnicalExercise.Models.Resident;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootTest
 class DataProcessingServiceTest {
@@ -46,8 +49,15 @@ class DataProcessingServiceTest {
 
     @Test
     public void assignsMultipleResidentsToSameAddress() {
-        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResidents().get(0)).matches(resident1));
-        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResidents().get(1)).matches(resident2));
-        Assertions.assertTrue(dataProcessingService.processData(listOfDataEntries).get(0).getResidents().size() > 1);
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries);
+        Assertions.assertTrue(new ReflectionEquals(processedData.get(0).getResidents().get(0)).matches(resident1));
+        Assertions.assertTrue(new ReflectionEquals(processedData.get(0).getResidents().get(1)).matches(resident2));
+        Assertions.assertTrue(processedData.get(0).getResidents().size() > 1);
+    }
+
+    @Test
+    public void noDuplicates() {
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries);
+        Assertions.assertTrue(processedData.stream().filter(i -> Collections.frequency(processedData, i) > 1).collect(Collectors.toList()).size() == 0);
     }
 }
