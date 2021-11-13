@@ -78,4 +78,11 @@ class DataProcessingServiceTest {
         Assertions.assertEquals("Tea area",processedData.get(processedData.size()-1).getAddress1());
     }
 
+    @Test
+    public void sortByPostCode() {
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "postcode");
+        Assertions.assertEquals("CM2",processedData.get(0).getPostcode());
+        Assertions.assertEquals("G10",processedData.get(processedData.size()-1).getPostcode());
+    }
+
 }
