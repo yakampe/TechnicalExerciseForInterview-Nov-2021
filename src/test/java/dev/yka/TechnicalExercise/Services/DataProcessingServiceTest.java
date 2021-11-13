@@ -63,11 +63,19 @@ class DataProcessingServiceTest {
         List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null);
         Assertions.assertTrue(processedData.stream().filter(i -> Collections.frequency(processedData, i) > 1).collect(Collectors.toList()).size() == 0);
     }
+
     @Test
     public void sortByCity() {
         List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "city");
         Assertions.assertEquals("Abc",processedData.get(0).getCity());
         Assertions.assertEquals("Zyx",processedData.get(processedData.size()-1).getCity());
+    }
+
+    @Test
+    public void sortByAddress1() {
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "city");
+        Assertions.assertEquals("67 TDD Street",processedData.get(0).getCity());
+        Assertions.assertEquals("Residential Area",processedData.get(processedData.size()-1).getCity());
     }
 
 }
