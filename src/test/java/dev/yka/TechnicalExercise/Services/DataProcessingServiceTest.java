@@ -42,17 +42,17 @@ class DataProcessingServiceTest {
     @Test
     public void returnsProcessedDataObject() {
         Assertions.assertTrue(listOfDataEntries.size() > 0);
-        Assertions.assertNotNull(dataProcessingService.processData(listOfDataEntries, null));
+        Assertions.assertNotNull(dataProcessingService.processData(listOfDataEntries, null, null));
     }
 
     @Test
     public void assignsResidentToAddress() {
-        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries, null).get(0).getResidents().get(0)).matches(resident1));
+        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries, null, null).get(0).getResidents().get(0)).matches(resident1));
     }
 
     @Test
     public void assignsMultipleResidentsToSameAddress() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null);
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null, null);
         Assertions.assertTrue(new ReflectionEquals(processedData.get(0).getResidents().get(0)).matches(resident1));
         Assertions.assertTrue(new ReflectionEquals(processedData.get(0).getResidents().get(1)).matches(resident2));
         Assertions.assertTrue(processedData.get(0).getResidents().size() > 1);
@@ -60,27 +60,27 @@ class DataProcessingServiceTest {
 
     @Test
     public void noDuplicates() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null);
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null, null);
         Assertions.assertTrue(processedData.stream().filter(i -> Collections.frequency(processedData, i) > 1).collect(Collectors.toList()).size() == 0);
     }
 
     @Test
     public void sortByCity() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "city");
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "city", null);
         Assertions.assertEquals("Abc",processedData.get(0).getCity());
         Assertions.assertEquals("Zyx",processedData.get(processedData.size()-1).getCity());
     }
 
     @Test
     public void sortByAddress1() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "address1");
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "address1", null);
         Assertions.assertEquals("67 TDD Street",processedData.get(0).getAddress1());
         Assertions.assertEquals("Tea area",processedData.get(processedData.size()-1).getAddress1());
     }
 
     @Test
     public void sortByPostCode() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "postcode");
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "postcode", null);
         Assertions.assertEquals("CM2",processedData.get(0).getPostcode());
         Assertions.assertEquals("G10",processedData.get(processedData.size()-1).getPostcode());
     }

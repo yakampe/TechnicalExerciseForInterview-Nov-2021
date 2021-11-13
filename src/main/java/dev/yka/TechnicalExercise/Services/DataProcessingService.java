@@ -1,9 +1,6 @@
 package dev.yka.TechnicalExercise.Services;
 
-import dev.yka.TechnicalExercise.Models.DataEntry;
-import dev.yka.TechnicalExercise.Models.ProcessedData;
-import dev.yka.TechnicalExercise.Models.Resident;
-import dev.yka.TechnicalExercise.Models.WrappedProcessedData;
+import dev.yka.TechnicalExercise.Models.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class DataProcessingService {
-    public List<ProcessedData> processData(List<DataEntry> dataEntries, String sortType) {
+    public List<ProcessedData> processData(List<DataEntry> dataEntries, String sortType, DataProcessingFilter dataProcessingFilter) {
         List<WrappedProcessedData> parsedList = new ArrayList<>();
 
         dataEntries.stream().forEach(eachEntry -> {
