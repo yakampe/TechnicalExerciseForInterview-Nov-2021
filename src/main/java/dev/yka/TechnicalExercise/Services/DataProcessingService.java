@@ -37,7 +37,7 @@ public class DataProcessingService {
                 objects.addAll(unwrappedData.getResidents());
                 objects.add(resident);
                 unwrappedData.setResidents(objects);
-                parsedList.add(duplicateAddressIndex, new WrappedProcessedData(unwrappedData));
+                parsedList.set(duplicateAddressIndex, new WrappedProcessedData(unwrappedData));
             }
         });
 
