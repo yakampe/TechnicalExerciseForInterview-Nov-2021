@@ -13,6 +13,12 @@ public class DataProcessingService {
         List<WrappedProcessedData> parsedList = new ArrayList<>();
 
         dataEntries.stream().forEach(eachEntry -> {
+            if(dataProcessingFilter != null) {
+                if(!eachEntry.getCity().equals(dataProcessingFilter.getFilterCriteria())) {
+                    return;
+                }
+            }
+
             ProcessedData processedData = new ProcessedData(eachEntry);
             int duplicateAddressIndex = parsedList.indexOf(new WrappedProcessedData(processedData));
             Resident resident = new Resident(eachEntry);
