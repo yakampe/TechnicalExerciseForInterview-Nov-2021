@@ -2,9 +2,13 @@ package dev.yka.TechnicalExercise.Services;
 
 import dev.yka.TechnicalExercise.Models.DataEntry;
 import dev.yka.TechnicalExercise.Models.ProcessedData;
+import dev.yka.TechnicalExercise.Models.Resident;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +25,9 @@ public class DataProcessingService {
 
     private List<ProcessedData> processDataEntries(List<DataEntry> dataEntries) {
         return dataEntries.stream()
-                .map(x -> new ProcessedData(x.getAddress1(), x.getAddress2(), x.getCity(), x.getState(), x.getPostcode(), x.getCountryCode(), new ArrayList<>())).collect(Collectors.toList());
+                .map(x -> {
+                    Resident resident = new Resident("Fred","Smith","M", LocalDate.parse("2010-01-01", DateTimeFormatter.ISO_DATE));
+                    return new ProcessedData(x.getAddress1(), x.getAddress2(), x.getCity(), x.getState(), x.getPostcode(), x.getCountryCode(), Arrays.asList(resident));
+                }).collect(Collectors.toList());
     }
 }

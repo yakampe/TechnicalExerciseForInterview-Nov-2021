@@ -37,6 +37,6 @@ class DataProcessingServiceTest {
 
     @Test
     public void assignsResidentToAddress() {
-        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResident()).matches(resident1));
+        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResident().get(0)).matches(resident1));
     }
 }
