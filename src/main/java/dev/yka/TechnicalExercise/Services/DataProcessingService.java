@@ -49,6 +49,9 @@ public class DataProcessingService {
             case "city":
                 sortMethodReference = ProcessedData::getCity;
                 break;
+            case "postcode":
+                sortMethodReference = ProcessedData::getPostcode;
+                break;
         }
 
         return parsedList.stream().map(WrappedProcessedData::unwrap).sorted(Comparator.comparing(sortMethodReference)).collect(Collectors.toList());
