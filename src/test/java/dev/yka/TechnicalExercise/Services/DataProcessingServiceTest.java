@@ -4,15 +4,17 @@ import dev.yka.TechnicalExercise.Models.DataEntry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.util.Assert;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+@SpringBootTest
 class DataProcessingServiceTest {
 
+    @Autowired
     DataProcessingService dataProcessingService;
 
     List<DataEntry> listOfDataEntries;
@@ -25,6 +27,7 @@ class DataProcessingServiceTest {
 
     @Test
     public void returnsProcessedDataObject() {
-        Assertions.assertNotNull((dataProcessingService.processData(listOfDataEntries)));
+        Assertions.assertTrue(listOfDataEntries.size() > 0);
+        Assertions.assertNotNull(dataProcessingService.processData(listOfDataEntries));
     }
 }
