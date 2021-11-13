@@ -26,7 +26,7 @@ public class DataProcessingService {
     private List<ProcessedData> processDataEntries(List<DataEntry> dataEntries) {
         return dataEntries.stream()
                 .map(x -> {
-                    Resident resident = new Resident("Fred","Smith","M", LocalDate.parse("2010-01-01", DateTimeFormatter.ISO_DATE));
+                    Resident resident = new Resident(x.getFirstName(),x.getSurname(),x.getGender(), x.getDateOfBirth());
                     return new ProcessedData(x.getAddress1(), x.getAddress2(), x.getCity(), x.getState(), x.getPostcode(), x.getCountryCode(), Arrays.asList(resident));
                 }).collect(Collectors.toList());
     }
