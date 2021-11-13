@@ -35,24 +35,24 @@ class DataProcessingServiceTest {
         listOfDataEntries.add(new DataEntry(resident1.getFirstName(),resident1.getSurname(),"Customs House","1 Long Street","Glasgow","Glasgow","G10","UK",resident1.getGender(),resident1.getDateOfBirth()));
         listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"Customs House","1 Long Street","Glasgow","Glasgow","G10","UK",resident2.getGender(),resident2.getDateOfBirth()));
         listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"Residential area","37 Java Street","Chelmsford","Essix","CM2","GB",resident2.getGender(),resident2.getDateOfBirth()));
-        listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"Tea area","341 Java Street","Colchester","Essix","CO3","UK",resident2.getGender(),resident2.getDateOfBirth()));
-        listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"67 TDD Street","","Colchester","Essix","CO3 5GE","GB",resident2.getGender(),resident2.getDateOfBirth()));
+        listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"Tea area","341 Java Street","Zyx","Essix","CO3","UK",resident2.getGender(),resident2.getDateOfBirth()));
+        listOfDataEntries.add(new DataEntry(resident2.getFirstName(),resident2.getSurname(),"67 TDD Street","","Abc","Essix","CO3 5GE","GB",resident2.getGender(),resident2.getDateOfBirth()));
     }
 
     @Test
     public void returnsProcessedDataObject() {
         Assertions.assertTrue(listOfDataEntries.size() > 0);
-        Assertions.assertNotNull(dataProcessingService.processData(listOfDataEntries));
+        Assertions.assertNotNull(dataProcessingService.processData(listOfDataEntries, null));
     }
 
     @Test
     public void assignsResidentToAddress() {
-        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries).get(0).getResidents().get(0)).matches(resident1));
+        Assertions.assertTrue(new ReflectionEquals(dataProcessingService.processData(listOfDataEntries, null).get(0).getResidents().get(0)).matches(resident1));
     }
 
     @Test
     public void assignsMultipleResidentsToSameAddress() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries);
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null);
         Assertions.assertTrue(new ReflectionEquals(processedData.get(0).getResidents().get(0)).matches(resident1));
         Assertions.assertTrue(new ReflectionEquals(processedData.get(0).getResidents().get(1)).matches(resident2));
         Assertions.assertTrue(processedData.get(0).getResidents().size() > 1);
@@ -60,13 +60,14 @@ class DataProcessingServiceTest {
 
     @Test
     public void noDuplicates() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries);
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, null);
         Assertions.assertTrue(processedData.stream().filter(i -> Collections.frequency(processedData, i) > 1).collect(Collectors.toList()).size() == 0);
     }
     @Test
     public void sortByCity() {
-        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries);
+        List<ProcessedData> processedData = dataProcessingService.processData(listOfDataEntries, "city");
         Assertions.assertEquals("Abc",processedData.get(0).getCity());
+        Assertions.assertEquals("Zyx",processedData.get(processedData.size()-1).getCity());
     }
 
 }

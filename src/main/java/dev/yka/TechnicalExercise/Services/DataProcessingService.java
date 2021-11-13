@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class DataProcessingService {
-    public List<ProcessedData> processData(List<DataEntry> dataEntries) {
+    public List<ProcessedData> processData(List<DataEntry> dataEntries, String sortType) {
         List<WrappedProcessedData> parsedList = new ArrayList<>();
 
         dataEntries.stream().forEach(eachEntry -> {
@@ -33,6 +33,10 @@ public class DataProcessingService {
                 parsedList.set(duplicateAddressIndex, new WrappedProcessedData(unwrappedData));
             }
         });
+
+        if(sortType != null) {
+            return parsedList.stream().map(WrappedProcessedData::unwrap).sorted(Comparator.comparing(ProcessedData::getCity)).collect(Collectors.toList());
+        }
 
         return parsedList.stream().map(WrappedProcessedData::unwrap).collect(Collectors.toList());
     }

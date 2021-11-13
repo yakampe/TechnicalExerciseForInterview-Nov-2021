@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class DataProcessingController {
     DataProcessingService dataProcessingService;
 
     @PostMapping(value = "/process-data", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ProcessedData>> processData(@RequestBody List<DataEntry> dataEntry) {
-        return ResponseEntity.ok(dataProcessingService.processData(dataEntry));
+    public ResponseEntity<List<ProcessedData>> processData(@RequestBody List<DataEntry> dataEntry, @RequestParam String sortType) {
+        return ResponseEntity.ok(dataProcessingService.processData(dataEntry, sortType));
     }
 }
