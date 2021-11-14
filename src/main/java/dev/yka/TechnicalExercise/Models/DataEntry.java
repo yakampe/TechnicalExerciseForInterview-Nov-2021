@@ -1,9 +1,16 @@
 package dev.yka.TechnicalExercise.Models;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import java.time.LocalDate;
 
-//@JsonFormat(with = JsonFormat.Feature.ACCEPT_CASE_INSENSITIVE_PROPERTIES)
 public class DataEntry {
+    @JsonAlias("firstname")
     private String firstName;
     private String surname;
     private String address1;
@@ -11,8 +18,13 @@ public class DataEntry {
     private String city;
     private String state;
     private String postcode;
+    @JsonAlias("countrycode")
     private String countryCode;
     private String gender;
+    @JsonAlias("dateofbirth")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d/M/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dateOfBirth;
 
     public DataEntry(String firstName, String surname, String address1, String address2, String city, String state, String postcode, String countryCode, String gender, LocalDate dateOfBirth) {
