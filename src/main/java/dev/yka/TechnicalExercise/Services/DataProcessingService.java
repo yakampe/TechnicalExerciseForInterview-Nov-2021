@@ -14,7 +14,7 @@ public class DataProcessingService {
 
         dataEntries.stream().forEach(eachEntry -> {
             if(dataProcessingFilter != null) {
-                if(!eachEntry.getCity().equals(dataProcessingFilter.getFilterCriteria())) {
+                if(!matchFilter(dataProcessingFilter, eachEntry)) {
                     return;
                 }
             }
@@ -43,6 +43,16 @@ public class DataProcessingService {
         }
 
         return parsedList.stream().map(WrappedProcessedData::unwrap).collect(Collectors.toList());
+    }
+
+    private boolean matchFilter(DataProcessingFilter dataProcessingFilter, DataEntry eachEntry) {
+        switch (dataProcessingFilter.getFilterType()) {
+            case "city":
+                return eachEntry.getCity().equals(dataProcessingFilter.getFilterCriteria());
+            case "postcode":
+                return eachEntry.getPostcode().equals(dataProcessingFilter.getFilterCriteria());
+        }
+        return false;
     }
 
     private List<ProcessedData> sortedList(List<WrappedProcessedData> parsedList, String sortType) {
