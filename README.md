@@ -1,4 +1,4 @@
-##Intro
+## Intro
 
 
 The purpose of this technical task was to provide a set of data to an endpoint  which would in return process this data and provide the following functionality:
@@ -8,7 +8,7 @@ The purpose of this technical task was to provide a set of data to an endpoint  
 * grouping of residents with the same address
 * completion and 'normalisation' of data fields
 
-##Progress
+## Progress
 
 Time spent ≈6 hours
 
@@ -23,7 +23,7 @@ Time spent ≈6 hours
 ❌️Addresses are not 'normalised' - would be achieved with an Address API provider or something?!
 
 
-##Info
+## Info
 
 <details>
   <summary>Request Body</summary>
@@ -75,7 +75,7 @@ Time spent ≈6 hours
 </details>
 
 
-##Example curl commands
+## Example curl commands
 
 <details>
   <summary>Sorting by postcode curl example</summary>
